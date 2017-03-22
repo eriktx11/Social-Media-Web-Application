@@ -28,7 +28,29 @@ Route::group(['middleware'=>['web']],function(){
    Route::post('/signin' ,['uses'=>'userController@postSignIn', 'as'=>'signin']); 
    
    Route::get('/dashboard',[
-       'uses'=>'userController@getDashboard', 'as'=>'dashboard', 'middleware'=>'auth'
+       'uses'=>'postController@getDashboard', 'as'=>'dashboard', 'middleware'=>'auth'
    ]);
    
+   Route::post('/createpost', [
+       'uses'=>'postController@postCreatePost',
+       'as'=>'post.create',
+       'middleware'=>'auth'
+   ]);
+   
+   Route::get('/delete-post/{post_id}', [
+       'uses'=>'postController@getDeletePost',
+       'as'=>'post.delete',
+       'middleware'=>'auth'
+   ]);
+   
+   Route::get('/logout', [
+       'uses'=>'userController@getLogout',
+       'as'=>'logout'
+   ]);
+
+   Route::post('/edit', [
+'uses'=>'postController@postEditPost',
+       'as'=>'edit'
+   ]);
+
 });
