@@ -48,6 +48,21 @@ Route::group(['middleware'=>['web']],function(){
        'as'=>'logout'
    ]);
 
+   Route::get('/account', [
+      'uses'=>'userController@getAccount',
+       'as'=> 'account'
+   ]);
+
+   Route::post('/updateaccount', [
+      'uses'=>'userController@postSaveAccount',
+       'as'=>'account.save'
+   ]);
+
+   Route::get('/userimages/{filename}', [
+       'uses'=>'userController@getUserImage',
+    'as'=>'account.image'
+       ]);
+
    Route::post('/edit', [
 'uses'=>'postController@postEditPost',
        'as'=>'edit'
