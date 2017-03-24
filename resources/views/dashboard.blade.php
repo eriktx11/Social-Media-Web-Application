@@ -3,7 +3,7 @@
 @include ('includes.message-block')
 <section class="row new-post" >
     <div class="col-md-5 col-md-offset-3">
-        <header><h3>What do you want to say</h3></header>
+        <header><h3>What do you want to say {{Auth::user()->first_name}}</h3></header>
         <form action="{{ route('post.create') }}" method="post">
             <div class="form-group">
                 <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Tell us here"></textarea>
@@ -23,12 +23,15 @@
                 Posted by: {{ $post->user->first_name }} laravel. {{$post->created_at}}
             </div>
             <div class="interaction">
+                @if(Auth::user()!=$post->user)
                 <a href="#" class="like">{{ Auth::user()->likes()->where('post_id',$post->id)->first() ?
                 Auth::user()->likes()->where('post_id',$post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'
                 }}</a> |
-                <a href="#" class="like">Dislike</a>
+                <a href="#" class="like">{{ Auth::user()->likes()->where('post_id',$post->id)->first() ?
+                Auth::user()->likes()->where('post_id',$post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'
+                }}</a>
+                @endif
                 @if(Auth::user()==$post->user)
-                |
                 <a href="#" class="edit">Edit</a> |
                 <a href="{{ route('post.delete', ['post_id'=>$post->id]) }}">Delete</a>
                 @endif
