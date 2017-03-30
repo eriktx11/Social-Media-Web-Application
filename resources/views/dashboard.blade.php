@@ -1,6 +1,9 @@
 @extends('layouts.master')
 @section('content')
 @include ('includes.message-block')
+{{--<p>Who is the weather today? {{$restful_data['coord']['lon']}}</p>description--}}
+<p>Who is the weather today? - It is: {{$icon_weather['description']}} today</p>
+<img src="https://openweathermap.org/img/w/{{ $icon_weather['icon'] }}.png">
 <section class="row new-post" >
     <div class="col-md-5 col-md-offset-3">
         <header><h3>What do you want to say {{Auth::user()->first_name}}</h3></header>

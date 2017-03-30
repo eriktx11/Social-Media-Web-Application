@@ -17,6 +17,12 @@
     return view ('welcome');
 })->name('home');
 
+
+Route::get('/clima', [
+    'as' => 'clima',
+    'uses' => 'postController@index'
+]);
+
 Route::group(['middleware'=>['web']],function(){
    
 //    Route::get('/', function () {
